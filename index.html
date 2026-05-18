@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>KRESTBL | Поиск юзернеймов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+</head>
+<body>
+    <!-- Анимированный фон "Кибер-узлы" -->
+    <canvas id="cyber-bg"></canvas>
+    
+    <!-- Основное приложение -->
+    <div class="app">
+        <!-- Хедер -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-glow">KRESTBL</span>
+                <span class="logo-dot">⚡</span>
+            </div>
+            <div class="limit-badge" id="limit-badge">
+                <span class="limit-icon">📊</span>
+                <span class="limit-text">Загрузка...</span>
+            </div>
+        </header>
+
+        <!-- Главный экран (Поиск) -->
+        <main class="main-content" id="search-screen">
+            <!-- Центральный слайдер режимов -->
+            <div class="mode-carousel-container">
+                <div class="mode-carousel" id="mode-carousel">
+                    <div class="mode-item active" data-mode="5">
+                        <div class="mode-icon">⚡</div>
+                        <div class="mode-name">5 БУКВ</div>
+                        <div class="mode-desc">Короткие</div>
+                    </div>
+                    <div class="mode-item" data-mode="6">
+                        <div class="mode-icon">✨</div>
+                        <div class="mode-name">6 БУКВ</div>
+                        <div class="mode-desc">Читаемые</div>
+                    </div>
+                    <div class="mode-item premium-locked" data-mode="word">
+                        <div class="mode-icon">📝</div>
+                        <div class="mode-name">СЛОВО</div>
+                        <div class="mode-desc">🔒 Premium</div>
+                    </div>
+                    <div class="mode-item premium-locked" data-mode="filter">
+                        <div class="mode-icon">🛠️</div>
+                        <div class="mode-name">ФИЛЬТР</div>
+                        <div class="mode-desc">🔒 Premium</div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carousel-dots"></div>
+            </div>
+
+            <!-- Динамические поля ввода -->
+            <div class="input-area" id="input-area">
+                <div class="input-field word-field" id="word-field" style="display: none;">
+                    <input type="text" id="word-input" placeholder="Введите основу (например: robert)...">
+                    <div class="input-glow"></div>
+                </div>
+                <div class="input-field filter-field" id="filter-field" style="display: none;">
+                    <input type="text" id="filter-input" placeholder="Маска (например: a?s?a)...">
+                    <div class="input-glow"></div>
+                </div>
+            </div>
+
+            <!-- Главная кнопка поиска -->
+            <button class="search-btn" id="search-btn">
+                <span class="btn-text">🚀 ЗАПУСТИТЬ ПОИСК</span>
+                <span class="btn-pulse"></span>
+            </button>
+        </main>
+
+        <!-- Экран поиска (Радар) -->
+        <div class="radar-screen" id="radar-screen" style="display: none;">
+            <div class="radar-container">
+                <div class="radar-circle">
+                    <div class="radar-scan"></div>
+                    <div class="radar-center"></div>
+                </div>
+                <div class="matrix-letters" id="matrix-letters"></div>
+                <div class="attempt-counter" id="attempt-counter">
+                    <span class="counter-label">Проверено вариантов:</span>
+                    <span class="counter-value" id="counter-value">0</span>
+                </div>
+            </div>
+            <button class="cancel-btn" id="cancel-search">Отмена</button>
+        </div>
+
+        <!-- Модалка результата -->
+        <div class="result-modal" id="result-modal" style="display: none;">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-firework">🎉</div>
+                <div class="modal-title">ЮЗЕРНЕЙМ НАЙДЕН!</div>
+                <div class="modal-username" id="result-username">@username</div>
+                <div class="modal-price" id="result-price">🔥 Ценность: 100-200 ⭐</div>
+                <div class="modal-buttons">
+                    <button class="modal-btn primary" id="result-open">📱 ПЕРЕЙТИ</button>
+                    <button class="modal-btn" id="result-copy">📋 СКОПИРОВАТЬ</button>
+                    <button class="modal-btn" id="result-again">🔄 ИСКАТЬ ЕЩЁ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-tab="search">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-label">Поиск</span>
+            </button>
+            <button class="nav-item" data-tab="profile">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">Профиль</span>
+            </button>
+            <button class="nav-item" data-tab="premium">
+                <span class="nav-icon">💎</span>
+                <span class="nav-label">Premium</span>
+            </button>
+            <button class="nav-item admin-only" data-tab="admin" style="display: none;">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Админ</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Остальные экраны (подгружаются динамически) -->
+    <div id="dynamic-screens"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
