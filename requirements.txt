@@ -1,0 +1,7 @@
+telebot
+telethon
+requests
+fastapi
+uvicorn
+aiofiles
+python-multipart
